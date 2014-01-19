@@ -1,2 +1,2 @@
 #!/bin/bash
-python3 ./server/iff-tornado.py &>./server.log
+python3 ./server/iff-tornado.py &>./server.log &

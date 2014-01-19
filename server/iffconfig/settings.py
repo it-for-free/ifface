@@ -27,6 +27,6 @@ app_settings = {
     #'template_loader': SOME_VALUE,
     #----Static Files:--
     'static_hash_cache': False,  # False, if Debug
-    'static_path': os.path.join(os.path.dirname(__file__), os.path.pardir, "static"),
+    'static_path': os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir, "static"),
     'static_url_prefix': "/static/",
 }

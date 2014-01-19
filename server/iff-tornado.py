@@ -12,6 +12,7 @@ import tornado.ioloop
 import tornado.template
 import tornado.web
 import iffconfig.settings
+import os
 
 
 class MainHeader(tornado.web.RequestHandler):
@@ -21,9 +22,10 @@ class MainHeader(tornado.web.RequestHandler):
 
 
 if __name__ == "__main__":
+    print(r"TORNADO:: starting... pid:", os.getpid())
     application = tornado.web.Application([
         (r"/", MainHeader),
     ], **iffconfig.settings.app_settings)
     application.listen(8888)
-    print("I'm ready")
+    print("TORNADO:: I'm ready")
     tornado.ioloop.IOLoop.instance().start()
