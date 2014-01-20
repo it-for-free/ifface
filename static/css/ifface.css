@@ -1,0 +1,31 @@
+/*
+ * This is a iff css
+ * Additional iff css classes and propertyes
+ * It-for-free 2014
+ */
+@font-face{
+    font-family: Comfortaa;
+    src: url("/static/fonts/Comfortaa-Regular.ttf") format('truetype');
+}
+
+header{
+    font-family: Comfortaa;
+    color: #334455;
+}
+header hgroup{
+    color: #334455;
+}
+header h1{
+    color: #334455;
+}
+header h2{
+    color: #334455;
+}
+
+.mainhead{
+    /*background-image: url("/static/img/iff-logo.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;*/
+    background-color: rgba(75, 71, 70, 0.3);
+}
