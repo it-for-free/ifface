@@ -8,10 +8,22 @@
     src: url("/static/fonts/Comfortaa-Regular.ttf") format('truetype');
 }
 
+@font-face{
+    font-family: MarkScript;
+    src: url("/static/fonts/MarckScript-Regular.ttf") format('truetype');
+}
+
+/*----Header:----------------*/
 header{
     font-family: Comfortaa;
     color: #334455;
 }
+
+header p{
+    padding-left: 30pt;
+    text-indent: 30pt;
+}
+
 header hgroup{
     color: #334455;
 }
@@ -29,3 +41,49 @@ header h2{
     background-position: right;*/
     background-color: rgba(75, 71, 70, 0.3);
 }
+/*----Header^-END------------*/
+
+/* ---------FOOTER:-------- */
+footer{
+    background-color: #ab751d;
+    color: #334455;
+    /*color: white;*/
+    font-family: MarkScript;
+}
+
+.footer-info{
+    font-family: Comfortaa;
+    color: rgb(221, 221, 221);
+    padding-top: 25pt;
+}
+
+.footer-info a{
+    color: rgb(201, 201, 221);
+}
+
+.footer-info a:hover{
+    color: rgb(181, 181, 201);
+}
+.footer-info a:visited{
+    color: rgb(201, 201, 221);
+}
+.footer-info a:visited:hover{
+    color: rgb(181, 181, 201);
+}
+.footer-info a:link{
+    color: rgb(201, 201, 221);
+}
+
+footer hr{
+    margin-bottom: 2px;
+    color: #B22222;
+}
+
+html{
+    background-color: #ab751d;
+}
+
+body{
+    background-color: white;
+}
+/* ---------FOOTER^-END---- */
