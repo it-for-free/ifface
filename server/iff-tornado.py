@@ -11,7 +11,7 @@
 import tornado.ioloop
 import tornado.template
 import tornado.web
-import iffconfig.settings
+import server.iffconfig.settings
 import os
 
 
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     print(r"TORNADO:: starting... pid:", os.getpid())
     application = tornado.web.Application([
         (r"/", MainHeader),
-    ], **iffconfig.settings.app_settings)
+    ], **server.iffconfig.settings.app_settings)
     application.listen(8888)
     print("TORNADO:: I'm ready")
     tornado.ioloop.IOLoop.instance().start()

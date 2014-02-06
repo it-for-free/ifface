@@ -30,3 +30,9 @@ app_settings = {
     'static_path': os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir, "static"),
     'static_url_prefix': "/static/",
 }
+
+#iff app settings:
+iff_settings = {
+    #DB PATH:
+    'db_path': os.path.join(os.path.dirname(__file__), os.path.pardir, "iffsqlitedb.db"),
+}
