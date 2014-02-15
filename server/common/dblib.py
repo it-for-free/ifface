@@ -15,10 +15,36 @@ class DbIff():
      Класс для работы с базой данных
     """
 
-    def __init__(self, db_path="simpdb.db"):
+    def __init__(self):
         """
         Constructor
-        @param db_path: путь к базе данных
         """
         self.connection_status = False
-        self.conn = sqlite3.connect(db_path)
+        self.connection = None
+
+    def connect(self, db_path="simpdb.db"):
+        """
+        Соединение с базой
+        @param db_path: путь к базе
+        """
+        self.connection = sqlite3.connect(db_path)
+        self.connection_status = True
+
+    #------------system functions----------------------
+    def _authorization(self, user_id):
+        """
+        Проверка прав доступа для субъекта
+        @param user_id: идентификатор пользователя в БД
+        """
+        _access = False
+        if self.connection_status:
+            pass
+        return _access
+
+    @staticmethod
+    def _simple_sql_filter(expr):
+        """
+        Простой фильтр, предохраняющий от sql инъекций
+        @param expr: выражение или параметр для фильтрации
+        """
+        pass
