@@ -8,10 +8,14 @@
 #       it-for-free 2014
 #----------------------------------------------------
 import sqlite3
-import re
+import time
 
 
-class SQLInjection(Exception):
+class SQLError(Exception):
+    pass
+
+
+class SQLInjection(SQLError):
     pass
 
 
@@ -35,6 +39,29 @@ class DbIff():
         self.connection = sqlite3.connect(db_path)
         self.connection_status = True
 
+    def disconect(self):
+        """
+        Отсоединение от базы
+        """
+        if self.connection_status:
+            self.connection.close()
+            self.connection_status = False
+
+    def get_near_vanonce(self):
+        """
+        Функция получения ближайших к сегоднешнему дню анонса видеовстреч
+        (тоесть, которые не старше и не младше месяца)
+        """
+        if not self.connection_status:
+            raise SQLError("No Connection")
+        _ntm = time.time()
+        _ftm = _ntm + 2678400
+        _ptm = _ntm - 2678400
+        _c = self.connection.cursor()
+        _c.execute("SELECT * FROM vannonce WHERE anutctime>? AND anutctime<?", (_ftm, _ptm))
+        _data = _c.fetchall()
+        return _data
+
     #------------system functions----------------------
     def _authorization(self, user_id):
         """
@@ -55,6 +82,7 @@ class DbIff():
         """
         _bad_sym = {
             "'", '"', ">", "<", "!", "(", ")", "{", "}", "[", "]", "=", "*", "/", "\\", "#", "?", "%", "$", "^",
+            ";",
         }
         if set(expr) & _bad_sym:
             raise SQLInjection("simple sql filter detect bad symbol")

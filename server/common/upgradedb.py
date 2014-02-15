@@ -48,6 +48,7 @@ picname TEXT,
 speaker TEXT NOT NULL,
 theme TEXT NOT NULL,
 description TEXT,
+status TEXT,
 andate TEXT NOT NULL,
 anutctime INTEGER NOT NULL);''')
 cur.execute('CREATE UNIQUE INDEX IF NOT EXISTS time_id_vannonce ON vannonce (timeutc ASC);')
