@@ -8,6 +8,11 @@
 #       it-for-free 2014
 #----------------------------------------------------
 import sqlite3
+import re
+
+
+class SQLInjection(Exception):
+    pass
 
 
 class DbIff():
@@ -41,10 +46,54 @@ class DbIff():
             pass
         return _access
 
+    #------
     @staticmethod
     def _simple_sql_filter(expr):
         """
         Простой фильтр, предохраняющий от sql инъекций
         @param expr: выражение или параметр для фильтрации
         """
-        pass
+        _bad_sym = {
+            "'", '"', ">", "<", "!", "(", ")", "{", "}", "[", "]", "=", "*",
+        }
+        if set(expr) & _bad_sym:
+            raise SQLInjection("simple sql filter detect bad symbol")
+        return True
+
+    @staticmethod
+    def ssqlfiltered(func):
+        """
+        Декоратор простой sql фильтрации
+        @param func: function
+        """
+        def sqlfilterdecorator(*args, **kwargs):
+            """wrapper"""
+            for el in args:
+                if type(el) == str:
+                    DbIff._simple_sql_filter(el)
+            for el in kwargs:
+                if type(kwargs[el]) == str:
+                    DbIff._simple_sql_filter([el])
+            func(*args, **kwargs)
+        return sqlfilterdecorator
+    #------
+
+
+if __name__ == "__main__":
+    db = DbIff()
+    #--------------
+    print("---- Test Simple SQL Filter Decorator -----")
+
+    @DbIff.ssqlfiltered
+    def test_fun(one, two, tree="ololo"):
+        print(one, two, tree)
+    test_fun("lovalova", two="mega")
+    test_fun("lovalova", "mega", "trololo")
+    test_fun("lovalova", "mega",  tree=5)
+    test_fun(4, "mega",  tree=5)
+    try:
+        test_fun(4, "ha'po'",  tree=5)
+    except SQLInjection as _err:
+        print(str(_err))
+        print("Test Fine")
+    #--------------
