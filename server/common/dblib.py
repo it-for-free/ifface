@@ -50,15 +50,15 @@ class DbIff():
     def get_near_vanonce(self):
         """
         Функция получения ближайших к сегоднешнему дню анонса видеовстреч
-        (тоесть, которые не старше и не младше месяца)
+        (тоесть, которые не старше месяца)
         """
         if not self.connection_status:
             raise SQLError("No Connection")
         _ntm = time.time()
+        _ptm = _ntm - 54000
         _ftm = _ntm + 2678400
-        _ptm = _ntm - 2678400
         _c = self.connection.cursor()
-        _c.execute("SELECT * FROM vannonce WHERE anutctime>? AND anutctime<?", (_ftm, _ptm))
+        _c.execute("SELECT * FROM vannonce WHERE anutctime>=? AND anutctime<?", (_ptm, _ftm))
         _data = _c.fetchall()
         return _data
 
@@ -85,7 +85,7 @@ class DbIff():
             ";",
         }
         if set(expr) & _bad_sym:
-            raise SQLInjection("simple sql filter detect bad symbol")
+            raise SQLInjection("simple sql injection filter detect bad symbol")
         return True
 
     @staticmethod
@@ -109,6 +109,7 @@ class DbIff():
 
 if __name__ == "__main__":
     db = DbIff()
+    db.connect("../iffsqlitedb.db")
     #--------------
     print("---- Test Simple SQL Filter Decorator -----")
 
@@ -124,4 +125,8 @@ if __name__ == "__main__":
     except SQLInjection as _err:
         print(str(_err))
         print("Test Fine")
+    #--------------
+    print("--- Test get near vannonce----")
+    data = db.get_near_vanonce()
+    print(data)
     #--------------

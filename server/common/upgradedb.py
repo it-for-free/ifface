@@ -66,6 +66,11 @@ cur.execute('CREATE UNIQUE INDEX IF NOT EXISTS timeutc_id_allnews ON allnews (ti
 # title TEXT NOT NULL,
 # msg TEXT NOT NULL);''')
 # cur.execute('CREATE UNIQUE INDEX IF NOT EXISTS time_id_auth ON auth (timeutc ASC);')
+#-----Create meta table-------
+cur.execute('''CREATE TABLE IF NOT EXISTS meta (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+name TEXT NOT NULL,
+value TEXT NOT NULL;''')
+cur.execute('CREATE UNIQUE INDEX IF NOT EXISTS meta_name ON meta (name ASC);')
 
 conn.commit()
 conn.close()

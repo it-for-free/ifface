@@ -35,4 +35,6 @@ app_settings = {
 iff_settings = {
     #DB PATH:
     'db_path': os.path.join(os.path.dirname(__file__), os.path.pardir, "iffsqlitedb.db"),
+    #Log Path:
+    'log_dir': os.path.join(os.path.dirname(__file__), os.path.pardir, "ifftornado.log"),
 }

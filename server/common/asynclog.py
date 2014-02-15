@@ -42,5 +42,5 @@ class Log():
         Функция асинхронной записи в лог
         @param msg: сообщение
         """
-        _msg = ">>> [{0}] {1} ::: {2}".format(os.getpgid(), datetime.now(), msg)
+        _msg = ">>> [{0}] {1} ::: {2}".format(os.getpid(), datetime.now(), msg)
         self.executor.submit(self.__write, _msg, self._log_dir)
