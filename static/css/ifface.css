@@ -65,20 +65,20 @@ footer{
 }
 
 .footer-info a{
-    color: rgb(201, 201, 221);
+    color: rgb(201, 201, 251);
 }
 
 .footer-info a:hover{
-    color: rgb(181, 181, 201);
+    color: rgb(181, 181, 231);
 }
 .footer-info a:visited{
-    color: rgb(201, 201, 221);
+    color: rgb(201, 201, 251);
 }
 .footer-info a:visited:hover{
-    color: rgb(181, 181, 201);
+    color: rgb(181, 181, 231);
 }
 .footer-info a:link{
-    color: rgb(201, 201, 221);
+    color: rgb(201, 201, 251);
 }
 
 footer hr{
