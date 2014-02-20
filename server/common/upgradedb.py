@@ -4,43 +4,44 @@
 #
 # description: Модуль (утилита) для
 #     создания и обновления базы данных.
+#     For posgresql and py-postgresql
 # info: MIT License 
 #       it-for-free 2014
 #-----------------------------------------
-import sqlite3
+import postgresql
 
 from server.iffconfig.settings import iff_settings
 
-conn = sqlite3.connect(iff_settings['db_path'])
-cur = conn.cursor()
+db = postgresql.open(iff_settings['db_path'])
+#cur = conn.cursor()
 #-----Create notes table-------
-cur.execute('''CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-timeutc INTEGER NOT NULL,
-date TEXT NOT NULL,
+db.execute('''CREATE TABLE IF NOT EXISTS notes (id SERIAL PRIMARY KEY NOT NULL,
+timeutc BIGINT NOT NULL,
+date TIMESTAMP NOT NULL,
 title TEXT NOT NULL,
-msg TEXT NOT NULL);''')
-cur.execute('CREATE UNIQUE INDEX IF NOT EXISTS time_id_notes ON notes (timeutc ASC);')
+description TEXT NOT NULL);''')
+db.execute('CREATE UNIQUE INDEX time_id_notes ON notes (timeutc DESC);')
 #-----Create some annonces table-------
-cur.execute('''CREATE TABLE IF NOT EXISTS sannonce (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-timeutc INTEGER NOT NULL,
-date TEXT NOT NULL,
+db.execute('''CREATE TABLE IF NOT EXISTS sannonce (id SERIAL PRIMARY KEY NOT NULL,
+timeutc BIGINT NOT NULL,
+date TIMESTAMP NOT NULL,
 title TEXT NOT NULL,
-picname TEXT NOT NULL,
-andate TEXT NOT NULL,
-msg TEXT NOT NULL);''')
-cur.execute('CREATE UNIQUE INDEX IF NOT EXISTS time_id_sannonce ON sannonce (timeutc ASC);')
+picname TEXT,
+andate TIMESTAMP NOT NULL,
+description TEXT NOT NULL);''')
+db.execute('CREATE UNIQUE INDEX time_id_sannonce ON sannonce (timeutc DESC);')
 #-----Create news table-------
-cur.execute('''CREATE TABLE IF NOT EXISTS news (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-timeutc INTEGER NOT NULL,
-date TEXT NOT NULL,
+db.execute('''CREATE TABLE IF NOT EXISTS news (id SERIAL PRIMARY KEY NOT NULL,
+timeutc BIGINT NOT NULL,
+date TIMESTAMP NOT NULL,
 title TEXT NOT NULL,
-picname TEXT NOT NULL,
-msg TEXT NOT NULL);''')
-cur.execute('CREATE UNIQUE INDEX IF NOT EXISTS time_id_news ON news (timeutc ASC);')
+picname TEXT,
+description TEXT NOT NULL);''')
+db.execute('CREATE UNIQUE INDEX time_id_news ON news (timeutc DESC);')
 #-----Create video annonces table-------
-cur.execute('''CREATE TABLE IF NOT EXISTS vannonce (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-timeutc INTEGER NOT NULL,
-date TEXT NOT NULL,
+db.execute('''CREATE TABLE IF NOT EXISTS vannonce (id SERIAL PRIMARY KEY NOT NULL,
+timeutc BIGINT NOT NULL,
+date TIMESTAMP NOT NULL,
 title TEXT NOT NULL,
 number INTEGER NOT NULL,
 rimnumber TEXT,
@@ -48,29 +49,27 @@ picname TEXT,
 speaker TEXT NOT NULL,
 theme TEXT NOT NULL,
 description TEXT,
-status TEXT,
-andate TEXT NOT NULL,
-anutctime INTEGER NOT NULL);''')
-cur.execute('CREATE UNIQUE INDEX IF NOT EXISTS time_id_vannonce ON vannonce (timeutc ASC);')
-cur.execute('CREATE UNIQUE INDEX IF NOT EXISTS antime_id_vannonce ON vannonce (anutctime ASC);')
+status VARCHAR(30),
+andate TIMESTAMP NOT NULL,
+anutctime BIGINT NOT NULL);''')
+db.execute('CREATE UNIQUE INDEX time_id_vannonce ON vannonce (timeutc DESC, anutctime ASC);')
 #-----Create all news table-------
-cur.execute('''CREATE TABLE IF NOT EXISTS allnews (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+db.execute('''CREATE TABLE IF NOT EXISTS allnews (id SERIAL PRIMARY KEY NOT NULL,
 tablename TEXT NOT NULL,
-timeutc INTEGER NOT NULL,
+timeutc BIGINT NOT NULL,
 record_id INTEGER NOT NULL);''')
-cur.execute('CREATE UNIQUE INDEX IF NOT EXISTS timeutc_id_allnews ON allnews (timeutc ASC);')
 #-----Create authentication table-------
-# cur.execute('''CREATE TABLE IF NOT EXISTS auth (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-# timeutc INTEGER NOT NULL,
+# cur.execute('''CREATE TABLE IF NOT EXISTS auth (id SERIAL PRIMARY KEY NOT NULL,
+# timeutc BIGINT NOT NULL,
 # date TEXT NOT NULL,
 # title TEXT NOT NULL,
 # msg TEXT NOT NULL);''')
 # cur.execute('CREATE UNIQUE INDEX IF NOT EXISTS time_id_auth ON auth (timeutc ASC);')
 #-----Create meta table-------
-cur.execute('''CREATE TABLE IF NOT EXISTS meta (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-name TEXT NOT NULL,
-value TEXT NOT NULL;''')
-cur.execute('CREATE UNIQUE INDEX IF NOT EXISTS meta_name ON meta (name ASC);')
+db.execute('''CREATE TABLE IF NOT EXISTS meta (id SERIAL PRIMARY KEY NOT NULL,
+name VARCHAR(20) NOT NULL,
+value TEXT NOT NULL);''')
+db.execute('CREATE UNIQUE INDEX meta_name ON meta (name);')
 
-conn.commit()
-conn.close()
+#conn.commit()
+#conn.close()

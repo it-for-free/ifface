@@ -1,3 +1,4 @@
 #!/bin/bash
-export PYTHONPATH=$PYTHONPATH:$(pwd):$(pwd)+/server
-python3 ./server/iff-tornado.py
+export PYTHONPATH=$PYTHONPATH:$(pwd):$(pwd)/server
+cd ./server
+python3 ./iff-tornado.py
