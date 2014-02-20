@@ -7,7 +7,7 @@
 # info: MIT License 
 #       it-for-free 2014
 #----------------------------------------------------
-import sqlite3
+import postgresql
 import time
 
 
@@ -30,14 +30,17 @@ class DbIff():
         """
         self.connection_status = False
         self.connection = None
+        self.prepared_statements = []
 
-    def connect(self, db_path="simpdb.db"):
+    def connect(self, db_path):
         """
         Соединение с базой
         @param db_path: путь к базе
         """
-        self.connection = sqlite3.connect(db_path)
+        self.connection = postgresql.open(db_path)
         self.connection_status = True
+        _prp = self.connection.prepare("SELECT * FROM vannonce WHERE anutctime>=$1 AND anutctime<$2")
+        self.prepared_statements.append(_prp)  # p_s[0] - get near vnonce statement
 
     def disconect(self):
         """
@@ -50,16 +53,14 @@ class DbIff():
     def get_near_vanonce(self):
         """
         Функция получения ближайших к сегоднешнему дню анонса видеовстреч
-        (тоесть, которые не старше месяца)
+        (тоесть, которые не дольше месяца в ожидании)
         """
         if not self.connection_status:
             raise SQLError("No Connection")
         _ntm = time.time()
         _ptm = _ntm - 54000
         _ftm = _ntm + 2678400
-        _c = self.connection.cursor()
-        _c.execute("SELECT * FROM vannonce WHERE anutctime>=? AND anutctime<?", (_ptm, _ftm))
-        _data = _c.fetchall()
+        _data = self.prepared_statements[0](_ptm, _ftm)
         return _data
 
     #------------system functions----------------------
@@ -109,7 +110,7 @@ class DbIff():
 
 if __name__ == "__main__":
     db = DbIff()
-    db.connect("../iffsqlitedb.db")
+    db.connect("pq://iff_admin:ifface@localhost/ifface")
     #--------------
     print("---- Test Simple SQL Filter Decorator -----")
 
