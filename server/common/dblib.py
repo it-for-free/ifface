@@ -24,10 +24,11 @@ class DbIff():
      Класс для работы с базой данных
     """
 
-    def __init__(self):
+    def __init__(self, id_inst=0):
         """
         Constructor
         """
+        self.id_instance = id_inst
         self.connection_status = False
         self.connection = None
         self.prepared_statements = []

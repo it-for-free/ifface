@@ -23,7 +23,7 @@ app_settings = {
     #----Template:------
     #'autoescape': None,
     'compiled_template_cache': False,  # False, if Debug
-    #'template_path': THEMPLATE_PATH,
+    'template_path': os.path.join(os.path.dirname(__file__), os.path.pardir, os.path.pardir, "templates"),
     #'template_loader': SOME_VALUE,
     #----Static Files:--
     'static_hash_cache': False,  # False, if Debug
