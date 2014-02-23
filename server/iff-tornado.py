@@ -80,11 +80,11 @@ class VebinarHandler(BaseHandler):
             TORNADOCACHE['avannoce'] = (vnoce, _ntm)
         if vnoce is not None:
             if _ntm < vnoce[12]:
-                _stat_auto = "Время этой встречи ещё не пришло"
+                _stat_auto = "Время этой встречи ещё не пришло..."
             elif abs(_ntm - vnoce[12]) > 7200:
-                _stat_auto = "Время уже не вернёшь"
+                _stat_auto = "Время этой встречи прошло..."
             else:
-                _stat_auto = "На встречу ещё можно успеть, наверное"
+                _stat_auto = "На встречу ещё можно успеть, наверное ;)"
             _parms = {
                 'correct_values': True,
                 'vtitle': vnoce[3],
@@ -94,11 +94,11 @@ class VebinarHandler(BaseHandler):
                 'speaker': vnoce[7],
                 'theme': vnoce[8],
                 'descryption': vnoce[9],
-                'date': vnoce[10],
-                'status_bd': vnoce[11],
+                'date': vnoce[11],
+                'status_bd': vnoce[10],
                 'status_auto': _stat_auto,
             }
-            self.render("video.html", _parms)
+            self.render("video.html", **_parms)
         else:
             self.render("video.html", correct_values=False)
 

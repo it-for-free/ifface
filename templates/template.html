@@ -7,11 +7,14 @@
     <meta name="keywords" content="iff, if for free, it-for-free, видеовстречи, info, links, main, home"/>
     <meta name="description" content="Портал iff"/>
     <meta name="author" content="if-for-free" />
+    {% block imports %}
     <!-- import CSS -->
     <link rel="stylesheet" href="/static/css/foundation-iff.css">
+    <link rel="stylesheet" href="/static/css/ifface.css">
     <!-- import JavaScript -->
     <script src="/static/js/vendor/modernizr.js"></script>
-    <title>it for free - home</title>
+    {% end %}
+    <title>{% block title %}it for free - template{% end %}</title>
 </head>
 <body>
     
@@ -20,8 +23,8 @@
         <nav class="top-bar" data-topbar>
              <ul class="title-area">
                 <li class="name">
-                    <h1 class="show-for-medium-up"><a href="#">it for free</a></h1>
-                    <h1 class="show-for-small-only"><a href="#">iFF</a></h1>
+                    <h1 class="show-for-medium-up"><a href="/">it for free</a></h1>
+                    <h1 class="show-for-small-only"><a href="/">iFF</a></h1>
                 </li>
                 <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
             </ul>
@@ -29,9 +32,11 @@
             <section class="top-bar-section">
             <!-- Right Nav Section -->
                 <ul class="right">
+                    {% block toprightnav %}
                     <li><a href="#">Новости</a></li>
-                    <li><a href="#">Видеовстречи</a></li>
+                    <li><a href="/video/">Видеовстречи</a></li>
                     <li><a href="#">Информация</a></li>
+                    {% end %}
                 </ul>
             </section>
             <!---------------------------------------->
@@ -39,12 +44,52 @@
     </div>
     <!--end tpbr&nav-->
     
-    <header>
-    </header>
+    {% block header %}
+    {% end %}
     
+    {% block content %}
+    {% end %}
     
     
     <footer>
+        <div class="footer-info">
+            <div class="row">
+                <div class="small-12 medium-6 large-4 columns">
+                    Контакты:
+                    <ul>
+                        <li><a href="http://fkn.ktu10.com/">Форум fkn.ktu10</a></li>
+                        <li>e-mail: it-for-free@yandex.ru</li>
+                        <li>Группа ВК - <a href="https://vk.com/it_for_free">it_for_free</a></li>
+                        <li>Паблик ВК - <a href="https://vk.com/itforfree">itforfree</a></li>
+                        <li><a href="https://plus.google.com/u/0/communities/107861224854496042076">Сообщество G+</a></li>
+                        <li>XMPP messager: it-for-free@itforfree.net</li>
+                        <li>Форма "связи" на данном сайте</li>
+                        <li><a href="https://github.com/it-for-free">Репозиторий iFF на GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="small-12 medium-6 large-4 columns">
+                    WEB Проекты:
+                    <ul>
+                        <li><a href="http://fkn.ktu10.com/">Форум fkn.ktu10</a> - это также проект</li>
+                        <li><a href="http://itforfree.net/cryptous/">KRYPTOus</a></li>
+                        <li>Ещё пополним .... ;)</li>
+                    </ul>
+                </div>
+                <div class="small-12 medium-6 large-4 columns">
+                    Партнёры:
+                    <ul>
+                        <li>Список пока пуст, нас периодически поддерживает ВГУ.... Но если вы хотите сюда попасть,
+                        то свяжитесь с нами, мы рады новым силам, лицам, энтузиастам и доброжелателям</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns text-center">
+                <hr>
+                <span class="text-center"> iT for free (iFF) 2014 </span>
+            </div>
+        </div>
     </footer>
     <!-- foundation recomendation ending -->
     <script src="/static/js/vendor/jquery.js"></script>

@@ -38,8 +38,12 @@ header h2{
     background-color: rgba(95, 91, 90, 0.2);
 }
 
+.mainpghead{
+    background-color: rgba(95, 91, 90, 0.2);
+}
+
 @media only screen and (min-width: 64.063em){
-    .mainhead{
+    .mainpghead{
         background-image: url("/static/img/iff-header.png");
         background-size: contain;
         background-repeat: no-repeat;
@@ -52,7 +56,7 @@ header h2{
 
 /* ---------FOOTER:-------- */
 footer{
-    background-color: #ab751d;
+    background-color: #ab4f1d;
     color: #334455;
     /*color: white;*/
     font-family: MarkScript;
@@ -87,10 +91,29 @@ footer hr{
 }
 
 html{
-    background-color: #ab751d;
+    background-color: #ab4f1d;
 }
 
 body{
     background-color: white;
 }
 /* ---------FOOTER^-END---- */
+
+/*-------SOME-----------*/
+.acvannonce p{
+    margin: 0px;
+}
+
+.acvannonce .label{
+    font-size: 1rem;
+}
+
+.acvannonce-small{
+    color: #334455;
+    font-size: 0.8rem;
+}
+
+.rimnumber{
+    color: #b22222;
+}
+/*---------------------*/

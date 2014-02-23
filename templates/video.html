@@ -1,1 +1,95 @@
-ololo
+{% extends "template.html" %}
+
+{% block title %}it for free - webinars{% end %}
+
+{% block toprightnav %}
+                    <li><a href="#">Новости</a></li>
+                    <li class="active"><a href="/video/">Видеовстречи</a></li>
+                    <li><a href="#">Информация</a></li>
+{% end %}
+
+{% block header %}
+    <header class="mainhead">
+        <div class="row">
+            <div class="small-12 medium-6 large-5 columns">
+                <hgroup>
+                    <h1><strong>Видеовстречи iFF</strong></h1>
+                </hgroup>
+                    <p>Страница подключения.</p>
+            </div>
+            <div class="small-12 medium-6 large-7 columns">
+                <form data-abide class="custom" action="http://itforfree.net/bigbluebutton/api/" method="get">
+                    <fieldset>
+                        <div class="row collapse">
+                            <div class="small-12 medium-7 large-8 columns name-field">
+                                <label>Ваш ник:
+                                    <input id="id_name_bbb" name="name_bbb" type="text" placeholder="Your nikname" required pattern="[a-zA-Z]+">
+                                    <small class="error">Необходимо ввести ник из букв цифр подчёркивания тире и.т.д :)</small>
+                                </label>
+                            </div>
+                            <div class="small-12 medium-5 large-4 columns" style="margin-top: 14px">
+                                <button id="_join_b" class="button prefix">Вход</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="small-12 text-center columns">
+                                Статус встречи: <span id="_status" style="color: grey;">Проверка...</span>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </header>
+{% end %}
+
+{% block content %}
+
+{% if correct_values %}
+<section style="margin-top: 15px;">
+    <div class="row">
+        <div class="small-12 medium-10 large-11 medium-centered large-centered columns">
+            <div class="panel radius acvannonce text-center">
+                <p>
+                    <span class="round secondary label">Актуальный аннонс:</span> Видеовстреча {{vnumber}} {% if rimnumber %} - [<span class="rimnumber"> {{rimnumber}} </span>] {% end %} -
+                    <span data-tooltip class="has-tip tip-top radius" title="тема: {{theme}} ">"{{vtitle}}"</span>
+                </p>
+                <p>
+                    Дата проведения: {{date}}
+                </p>
+                <p>
+                    Статус встречи: {{status_bd}}
+                </p>
+                <p>
+                    Спикер: {{speaker}}
+                </p>
+                <p class="hide-for-small">
+                    <span class="acvannonce-small">Подсказка: {{status_auto}}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% end %}
+
+<section>
+    <div class="row">
+        <div class="small-12 medium-11 medium-centered large-12 columns">
+            <p>
+                <strong>Видеовстречи IFF</strong> - это online видеоконференции и вебинары, проводимые в рамках <em>IFF</em> на iT тематику
+                и не только. Здесь можно обмениваться опытом, устраивать <span data-tooltip class="has-tip tip-top radius" title="Мозговой-штурм, участники генерируют как можно больше вариантов решения проблемы">brainstorm</span>,
+                читать видеолекции, обсуждать проекты, и всё всё всё, что можно решить таким методом общения. Мы приглашаем всех, кто хочет учавствовать.
+            </p>
+            <p>
+                Исторически так сложилось, что обычно на iT тематику видеовстречи проводятся около 20-20 каждый понедельник. Для получения
+                подробной информации смотрите новости и анонсы на наших ресурсах.
+            </p>
+            <p>
+                <strong>Как работают наши видеовсречи?</strong> Для организации вебинаров мы используем <span data-tooltip class="has-tip tip-top radius" title="Продукты с открытым исходным кодом, и зачастую с довольно либеральной лицензией ;)">open source</span> решение (сервер)
+                <a href="http://bigbluebutton.org">BigBlueButton (BBB)</a>, который "крутится" порой на мощностях iFF, <em>а в основном, для лучшей производительности,
+                нам любезно предоставляет свои серверные мощности ВГУ (Воронежский Государственный Университет).</em>
+            </p>
+        </div>
+    </div>
+</section>
+{% end %}
