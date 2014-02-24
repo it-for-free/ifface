@@ -1,5 +1,22 @@
 {% extends "template.html" %}
 
+{% block imports %}
+    <!-- import CSS -->
+    <link rel="stylesheet" href="/static/css/foundation-iff.css">
+    <link rel="stylesheet" href="/static/css/ifface.css">
+    <!-- import JavaScript -->
+    <script src="/static/js/vendor/modernizr.js"></script>
+    <script src="/static/js/crypto-js/rollups/sha1.js"></script>
+    <script src="/static/js/bbbiff.js"></script>
+    <script>
+        window.onload=function(){
+            BBBinit("http://conference.main.vsu.ru", "bicsyenEiddEjceywintUjCosDewerdooj");
+            BBBGetStatus();
+            var bbbstatcheker=setInterval(function(){BBBGetStatus()},2500);
+        }
+    </script>
+{% end %}
+
 {% block title %}it for free - webinars{% end %}
 
 {% block toprightnav %}
@@ -18,17 +35,17 @@
                     <p>Страница подключения.</p>
             </div>
             <div class="small-12 medium-6 large-7 columns">
-                <form data-abide class="custom" action="http://itforfree.net/bigbluebutton/api/" method="get">
+                <form data-abide id="_join_form_bbb" class="custom" action="http://itforfree.net/bigbluebutton/api/" method="get" onsubmit="javascript:BBBJoin();return false;">
                     <fieldset>
                         <div class="row collapse">
                             <div class="small-12 medium-7 large-8 columns name-field">
-                                <label>Ваш ник:
+                                <label id="nik_label">Ваш ник:
                                     <input id="id_name_bbb" name="name_bbb" type="text" placeholder="Your nikname" required pattern="[a-zA-Z]+">
                                     <small class="error">Необходимо ввести ник из букв цифр подчёркивания тире и.т.д :)</small>
                                 </label>
                             </div>
                             <div class="small-12 medium-5 large-4 columns" style="margin-top: 14px">
-                                <button id="_join_b" class="button prefix">Вход</button>
+                                <button id="_join_b" type="submit" formaction="http://itforfree.net/" class="button prefix">Вход</button>
                             </div>
                         </div>
                         <div class="row">
@@ -58,7 +75,7 @@
                     Дата проведения: {{date}}
                 </p>
                 <p>
-                    Статус встречи: {{status_bd}}
+                    Статус встречи: <span id="serv_an_status">{{status_bd}}</span>
                 </p>
                 <p>
                     Спикер: {{speaker}}
