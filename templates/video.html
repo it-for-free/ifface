@@ -8,11 +8,16 @@
     <script src="/static/js/vendor/modernizr.js"></script>
     <script src="/static/js/crypto-js/rollups/sha1.js"></script>
     <script src="/static/js/bbbiff.js"></script>
+    <script src="/static/js/vannon-v.js"></script>
     <script>
         window.onload=function(){
             BBBinit("http://conference.main.vsu.ru", "bicsyenEiddEjceywintUjCosDewerdooj");
+            iFFapiInit()
             BBBGetStatus();
-            var bbbstatcheker=setInterval(function(){BBBGetStatus()},2500);
+            var bbbstatcheker=setInterval(function(){BBBGetStatus()},3500);
+            if (document.getElementById("vannon_data_act")) {
+                var vanstatcheker=setInterval(function(){GetVAnonceStatus()},15500);
+            }
         }
     </script>
 {% end %}
@@ -20,9 +25,9 @@
 {% block title %}it for free - webinars{% end %}
 
 {% block toprightnav %}
-                    <li><a href="#">Новости</a></li>
+                    <li><a href="/indev/">Новости</a></li>
                     <li class="active"><a href="/video/">Видеовстречи</a></li>
-                    <li><a href="#">Информация</a></li>
+                    <li><a href="/indev/">Информация</a></li>
 {% end %}
 
 {% block header %}
@@ -36,6 +41,7 @@
             </div>
             <div class="small-12 medium-6 large-7 columns">
                 <form data-abide id="_join_form_bbb" class="custom" action="http://itforfree.net/bigbluebutton/api/" method="get" onsubmit="javascript:BBBJoin();return false;">
+                    {% module xsrf_form_html() %}
                     <fieldset>
                         <div class="row collapse">
                             <div class="small-12 medium-7 large-8 columns name-field">
@@ -63,7 +69,7 @@
 {% block content %}
 
 {% if correct_values %}
-<section style="margin-top: 15px;">
+<section id="vannon_data_act" style="margin-top: 15px;">
     <div class="row">
         <div class="small-12 medium-10 large-11 medium-centered large-centered columns">
             <div class="panel radius acvannonce text-center">
@@ -82,6 +88,10 @@
                 </p>
                 <p class="hide-for-small">
                     <span class="acvannonce-small">Подсказка: {{status_auto}}</span>
+                </p>
+                <p hidden="true">
+                    <span id="_vutctime">{{timeutc}}</span>
+                    <span id="_vanutctime">{{antimeutc}}</span>
                 </p>
             </div>
         </div>
