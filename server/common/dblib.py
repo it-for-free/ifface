@@ -42,6 +42,8 @@ class DbIff():
         self.connection_status = True
         _prp = self.connection.prepare("SELECT * FROM vannonce WHERE anutctime>=$1 AND anutctime<$2")
         self.prepared_statements.append(_prp)  # p_s[0] - get near vnonce statement
+        _prp = self.connection.prepare("SELECT * FROM vannonce WHERE timeutc=$1 AND anutctime=$2")
+        self.prepared_statements.append(_prp)  # p_s[1] - get_vannonce_data_utc
 
     def disconect(self):
         """
@@ -62,6 +64,17 @@ class DbIff():
         _ptm = _ntm - 54000
         _ftm = _ntm + 2678400
         _data = self.prepared_statements[0](_ptm, _ftm)
+        return _data
+
+    def get_vannonce_data_utc(self, tutc, antutc):
+        """
+        Функция получения видео анонса по времени публикации и времени проведения
+        @param tutc: время создания (публикации)
+        @param antutc: время проведения
+        """
+        if (type(tutc) is not int) or (type(antutc) is not int):
+            raise SQLInjection("Might be injection in get_vannonce_data_utc")
+        _data = self.prepared_statements[1](tutc, antutc)
         return _data
 
     #------------system functions----------------------

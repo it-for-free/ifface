@@ -22,6 +22,8 @@ var BBBapi = new Object();
             _hostpref = "www.";
         };
         this.pref = suf + _hostpref;
+        //----get host name---(might be change in Production manualy):
+        this.serverproxy = window.location.host + "/api";
     };
     BBBapi.getMeetingStatus = function(){
         var _cs = CryptoJS.SHA1("isMeetingRunningmeetingID=" + this.meetingid + this.servsalt);
@@ -29,21 +31,26 @@ var BBBapi = new Object();
         $.ajax({
             url: _url,
             type: "GET",
-            timeout: 500,
+            timeout: 3500,
             dataType: 'xml',
             error: this.errorMeetingStatus,
             success: this.readMeetingStatus,
             });
     };
     BBBapi.readMeetingStatus = function(data, statustxt){
-        if(data.match("true") == "true"){
+        var _el = data.getElementsByTagName("running")[0]
+        if(_el.innerHTML == "true"){
             var _st = $("#_status");
             _st.css("color", "green");
             _st.text("Online :)");
-         } else if(data.match("false") == "false"){
+         } else if(_el.innerHTML == "false"){
             var _st = $("#_status");
             _st.css("color", "red");
             _st.text("Offline.");
+         } else {
+            var _st = $("#_status");
+            _st.css("color", "#b22222");
+            _st.text("Нет Данных.");
          }
     };
     BBBapi.errorMeetingStatus = function(data, statustxt){

@@ -47,3 +47,19 @@ class AsyncDb():
         else:
             _data = None
         return _data
+
+    @run_on_executor
+    def get_vannonce_data_utc(self, tutc, antutc):
+        """
+        Функция получения видео анонса по времени публикации и времени проведения
+        @param tutc: время создания (публикации)
+        @param antutc: время проведения
+        """
+        _db = self.db_queue.get(block=True, timeout=1)
+        _data = _db.get_vannonce_data_utc(tutc, antutc)
+        self.db_queue.put(_db, block=True, timeout=1)
+        if len(_data) > 0:
+            _data = _data[0]
+        else:
+            _data = None
+        return _data
